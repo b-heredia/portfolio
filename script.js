@@ -122,3 +122,36 @@ if (liveClock) {
   tickClock();
   setInterval(tickClock, 1000);
 }
+
+// Footer date stamp
+const footerDate = document.getElementById('footerDate');
+if (footerDate) {
+  const now = new Date();
+  const dd = String(now.getDate()).padStart(2, '0');
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  footerDate.textContent = `${dd}.${mm}.${now.getFullYear()}`;
+}
+
+// Ruler tick marks along the top HUD strip
+const ruler = document.getElementById('ruler');
+if (ruler) {
+  function buildRuler() {
+    const tickWidth = 42;
+    const count = Math.ceil(window.innerWidth / tickWidth) + 1;
+    ruler.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    for (let i = 1; i <= count; i++) {
+      const tick = document.createElement('span');
+      tick.className = 'ruler-tick';
+      tick.textContent = i;
+      frag.appendChild(tick);
+    }
+    ruler.appendChild(frag);
+  }
+  buildRuler();
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildRuler, 200);
+  });
+}
