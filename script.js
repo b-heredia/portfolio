@@ -81,6 +81,58 @@ if (cursorGlow && !prefersReducedMotion) {
   }, { passive: true });
 }
 
+// Comet-trail cursor
+(function () {
+  const canvas = document.getElementById('cometCanvas');
+  if (!canvas || prefersReducedMotion) return;
+  const ctx = canvas.getContext('2d');
+  const colors = ['#8b6bff', '#dd1cc3', '#22d3ee'];
+  let particles = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  window.addEventListener('mousemove', (e) => {
+    for (let i = 0; i < 2; i++) {
+      particles.push({
+        x: e.clientX,
+        y: e.clientY,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
+        r: Math.random() * 3 + 2,
+        life: 1,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      });
+    }
+    if (particles.length > 160) particles.splice(0, particles.length - 160);
+  }, { passive: true });
+
+  function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life -= 0.02;
+      ctx.globalAlpha = Math.max(p.life, 0);
+      ctx.fillStyle = p.color;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * Math.max(p.life, 0), 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    particles = particles.filter((p) => p.life > 0);
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// Scroll progress bar
 // Scroll progress bar
 const scrollFill = document.getElementById('scrollFill');
 if (scrollFill) {
