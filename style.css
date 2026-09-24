@@ -9,6 +9,7 @@
   --border: rgba(255, 255, 255, 0.08);
   --mono: 'JetBrains Mono', monospace;
   --display: 'Space Grotesk', sans-serif;
+  --display-heavy: 'Big Shoulders Display', 'Space Grotesk', sans-serif;
   --body-font: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -357,14 +358,18 @@ section:last-of-type { border-bottom: none; }
 }
 
 h1 {
-  font-family: var(--display);
-  font-size: clamp(2.2rem, 6vw, 3.4rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--display-heavy);
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 0.95;
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, var(--accent), var(--accent-pink) 55%, var(--accent2));
+  background:
+    repeating-linear-gradient(180deg, rgba(11, 13, 20, 0.35) 0px, rgba(11, 13, 20, 0.35) 1px, transparent 1px, transparent 4px),
+    linear-gradient(90deg, var(--accent), var(--accent-pink) 55%, var(--accent2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
