@@ -19,8 +19,24 @@
 <div class="bg-grid" aria-hidden="true"></div>
 <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
+<div class="chrome-bar" aria-hidden="true">
+<span class="chrome-dot" style="background:#ff5f57"></span>
+<span class="chrome-dot" style="background:#febc2e"></span>
+<span class="chrome-dot" style="background:#28c840"></span>
+<span class="chrome-url">https://b-heredia.github.io/portfolio</span>
+</div>
+
+<div class="ruler" id="ruler" aria-hidden="true"></div>
+
 <div class="scroll-progress" aria-hidden="true">
 <div class="scroll-progress-fill" id="scrollFill"></div>
+</div>
+
+<div class="edge-label edge-label-left" aria-hidden="true">
+<span>MARKUP</span><span>STYLE</span><span>SCRIPT</span><span>DEPLOY</span>
+</div>
+<div class="edge-label edge-label-right" aria-hidden="true">
+<span>PORTFOLIO</span><span>I.C.STARS</span><span>BRI</span><span>2026</span>
 </div>
 
 <header>
@@ -34,7 +50,14 @@
 <main>
 
 <section id="hero">
-<p class="eyebrow">&lt;developer&nbsp;in&nbsp;progress /&gt;</p>
+<div class="viewfinder" aria-hidden="true">
+  <span class="vf-corner vf-tl"></span>
+  <span class="vf-corner vf-tr"></span>
+  <span class="vf-corner vf-bl"></span>
+  <span class="vf-corner vf-br"></span>
+  <span class="vf-crosshair"></span>
+</div>
+<p class="eyebrow boxed-label">&lt;developer&nbsp;in&nbsp;progress /&gt;</p>
 <h1 class="gradient-text glitch" data-text="Briana Heredia">Briana Heredia</h1>
 <p class="tagline"><span id="typed"></span><span class="cursor">|</span></p>
 </section>
@@ -108,8 +131,29 @@
 </main>
 
 <footer>
-<p class="status-line"><span class="status-dot" aria-hidden="true"></span><span id="statusText">SYSTEM ONLINE</span> · <span id="liveClock"></span></p>
-<p>&copy; 2026 Briana Heredia</p>
+<div class="colophon">
+  <div class="colophon-col colophon-mark">
+    <svg width="24" height="24" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="none" stroke="currentColor" stroke-width="1"/><path d="M13 3v20M3 13h20M5.9 5.9l14.2 14.2M20.1 5.9L5.9 20.1" stroke="currentColor" stroke-width="0.6" opacity="0.6"/></svg>
+    <span>B.H.</span>
+  </div>
+  <div class="colophon-col">
+    <span class="colophon-label">Portfolio</span>
+    <span>b-heredia.github.io</span>
+  </div>
+  <div class="colophon-col">
+    <span class="colophon-label">Date</span>
+    <span id="footerDate"></span>
+  </div>
+  <div class="colophon-col">
+    <span class="colophon-label">Time</span>
+    <span id="liveClock"></span>
+  </div>
+  <div class="colophon-col colophon-desc">
+    <span class="colophon-label">Note</span>
+    <span>Built solo with HTML, CSS &amp; JS while training at i.c.stars. All content &amp; code &copy; 2026 Briana Heredia.</span>
+  </div>
+</div>
+<p class="status-line"><span class="status-dot" aria-hidden="true"></span><span id="statusText">SYSTEM ONLINE</span></p>
 </footer>
 
 <script src="script.js"></script>
