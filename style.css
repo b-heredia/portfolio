@@ -72,6 +72,21 @@ body {
   will-change: transform;
 }
 
+/* comet-trail cursor */
+#cometCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #cometCanvas { display: none; }
+}
+
+/* scroll progress bar */
 /* scroll progress bar */
 .scroll-progress {
   position: fixed;
