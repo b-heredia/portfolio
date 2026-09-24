@@ -11,7 +11,17 @@
 </head>
 <body>
 
+<div id="boot-overlay" aria-hidden="true">
+<p class="boot-line">&gt; initializing_portfolio.exe</p>
+</div>
+
 <div class="bg-glow" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<div class="scroll-progress" aria-hidden="true">
+<div class="scroll-progress-fill" id="scrollFill"></div>
+</div>
 
 <header>
 <nav>
@@ -25,7 +35,7 @@
 
 <section id="hero">
 <p class="eyebrow">&lt;developer&nbsp;in&nbsp;progress /&gt;</p>
-<h1 class="gradient-text">Briana Heredia</h1>
+<h1 class="gradient-text glitch" data-text="Briana Heredia">Briana Heredia</h1>
 <p class="tagline"><span id="typed"></span><span class="cursor">|</span></p>
 </section>
 
@@ -52,7 +62,7 @@
 <p class="section-label">02 · Projects</p>
 <h2>Projects</h2>
 
-<div class="project">
+<div class="project tilt">
   <div class="project-head">
     <h3>Mood Companion</h3>
     <span class="status status-live">live</span>
@@ -66,7 +76,7 @@
   <a class="project-link" href="mood-companion.html">View project <span aria-hidden="true">→</span></a>
 </div>
 
-<div class="project">
+<div class="project tilt">
   <div class="project-head">
     <h3>Project Title</h3>
     <span class="status status-progress">in progress</span>
@@ -98,6 +108,7 @@
 </main>
 
 <footer>
+<p class="status-line"><span class="status-dot" aria-hidden="true"></span><span id="statusText">SYSTEM ONLINE</span> · <span id="liveClock"></span></p>
 <p>&copy; 2026 Briana Heredia</p>
 </footer>
 
