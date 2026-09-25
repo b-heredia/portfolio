@@ -48,6 +48,49 @@ function typeLoop() {
 
 typeLoop();
 
+// Twinkling star field (live background)
+(function () {
+  const canvas = document.getElementById('starField');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const count = Math.floor((canvas.width * canvas.height) / 9000);
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.3 + 0.4,
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.0015 + 0.0006
+    }));
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function draw(time) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach((s) => {
+      const twinkle = prefersReducedMotion ? 0.7 : 0.5 + 0.5 * Math.sin(time * s.speed + s.phase);
+      ctx.globalAlpha = 0.25 + twinkle * 0.65;
+      ctx.fillStyle = '#f2f0ff';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    if (!prefersReducedMotion) requestAnimationFrame(draw);
+  }
+
+  if (prefersReducedMotion) {
+    draw(0);
+  } else {
+    requestAnimationFrame(draw);
+  }
+})();
+
 // Fade-in sections on scroll
 const revealEls = document.querySelectorAll('.reveal');
 
@@ -132,7 +175,6 @@ if (cursorGlow && !prefersReducedMotion) {
   loop();
 })();
 
-// Scroll progress bar
 // Scroll progress bar
 const scrollFill = document.getElementById('scrollFill');
 if (scrollFill) {
