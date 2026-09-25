@@ -1,11 +1,11 @@
 :root {
-  --bg: #0b0d14;
-  --bg-alt: #12151f;
+  --bg: #0a0714;
+  --bg-alt: #160f28;
   --ink: #e9ebf2;
-  --muted: #8b93a8;
-  --accent: #8b6bff;
-  --accent2: #22d3ee;
-  --accent-pink: #dd1cc3;
+  --muted: #9a95c9;
+  --accent: #9d5cff;
+  --accent2: #00eaff;
+  --accent-pink: #ff2fc4;
   --border: rgba(255, 255, 255, 0.08);
   --mono: 'JetBrains Mono', monospace;
   --display: 'Space Grotesk', sans-serif;
@@ -26,35 +26,98 @@ body {
   padding-top: 53px;
 }
 
-/* ambient glow background */
-.bg-glow {
+/* twinkling star field (drawn on canvas via script.js) */
+#starField {
   position: fixed;
   inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(600px circle at 15% 10%, rgba(139, 107, 255, 0.16), transparent 60%),
-    radial-gradient(500px circle at 85% 25%, rgba(34, 211, 238, 0.12), transparent 60%),
-    radial-gradient(700px circle at 50% 90%, rgba(221, 28, 195, 0.10), transparent 60%);
+  width: 100%;
+  height: 100%;
+  z-index: -5;
+  pointer-events: none;
 }
 
-/* animated circuit-style grid */
-.bg-grid {
+/* slowly drifting nebula clouds */
+.nebula {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.nebula-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+}
+
+.nebula-blob.a {
+  width: 46vw;
+  height: 46vw;
+  top: -10%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(157, 92, 255, 0.55), transparent 70%);
+  animation: driftA 34s ease-in-out infinite alternate;
+}
+
+.nebula-blob.b {
+  width: 40vw;
+  height: 40vw;
+  top: 30%;
+  right: -12%;
+  background: radial-gradient(circle, rgba(0, 234, 255, 0.4), transparent 70%);
+  animation: driftB 28s ease-in-out infinite alternate;
+}
+
+.nebula-blob.c {
+  width: 50vw;
+  height: 50vw;
+  bottom: -18%;
+  left: 20%;
+  background: radial-gradient(circle, rgba(255, 47, 196, 0.35), transparent 70%);
+  animation: driftC 40s ease-in-out infinite alternate;
+}
+
+@keyframes driftA {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(6vw, 8vh) scale(1.15); }
+}
+
+@keyframes driftB {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-8vw, 6vh) scale(1.1); }
+}
+
+@keyframes driftC {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(5vw, -7vh) scale(1.12); }
+}
+
+/* continuously scrolling neon grid floor, fixed behind every section */
+.live-floor {
+  position: fixed;
+  left: 50%;
+  bottom: -10px;
+  width: 240%;
+  height: 55vh;
+  transform: translateX(-50%) perspective(320px) rotateX(62deg);
+  transform-origin: bottom;
   background-image:
-    linear-gradient(rgba(139, 107, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 107, 255, 0.07) 1px, transparent 1px);
-  background-size: 42px 42px;
-  animation: gridDrift 30s linear infinite;
+    linear-gradient(rgba(0, 234, 255, 0.5) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(255, 47, 196, 0.5) 1.5px, transparent 1.5px);
+  background-size: 54px 54px;
+  -webkit-mask-image: linear-gradient(180deg, black 20%, transparent 80%);
+  mask-image: linear-gradient(180deg, black 20%, transparent 80%);
+  z-index: -3;
   opacity: 0.6;
-  -webkit-mask-image: radial-gradient(circle at 50% 25%, black, transparent 75%);
-  mask-image: radial-gradient(circle at 50% 25%, black, transparent 75%);
+  animation: liveFloorScroll 2.4s linear infinite;
 }
 
-@keyframes gridDrift {
-  0% { background-position: 0 0, 0 0; }
-  100% { background-position: 42px 42px, 42px 42px; }
+@keyframes liveFloorScroll {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 0 54px, 0 0; }
 }
 
 /* glow that follows the cursor */
@@ -70,6 +133,23 @@ body {
   pointer-events: none;
   z-index: -1;
   will-change: transform;
+}
+
+/* CRT scanline overlay */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.18) 0px,
+    rgba(0, 0, 0, 0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.35;
 }
 
 /* comet-trail cursor */
@@ -308,6 +388,7 @@ section:last-of-type { border-bottom: none; }
   color: var(--accent2);
   letter-spacing: 0.08em;
   margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(0, 234, 255, 0.5);
 }
 
 /* hero */
@@ -366,9 +447,10 @@ section:last-of-type { border-bottom: none; }
 
 .boxed-label {
   display: inline-block;
-  border: 1px solid rgba(139, 107, 255, 0.35);
+  border: 1px solid rgba(157, 92, 255, 0.45);
   padding: 0.35rem 0.8rem;
   border-radius: 2px;
+  box-shadow: 0 0 14px rgba(157, 92, 255, 0.3);
 }
 
 h1 {
@@ -378,6 +460,7 @@ h1 {
   letter-spacing: 0.01em;
   text-transform: uppercase;
   line-height: 0.95;
+  text-shadow: 0 0 22px rgba(255, 47, 196, 0.5), 0 0 46px rgba(0, 234, 255, 0.3);
 }
 
 .gradient-text {
@@ -731,11 +814,12 @@ footer {
   .cursor { animation: none; }
   html { scroll-behavior: auto; }
   #boot-overlay { display: none; }
-  .bg-grid { animation: none; }
   .cursor-glow { display: none; }
   .glitch:hover::before,
   .glitch:hover::after { animation: none; }
   .status-dot { animation: none; }
   .project.tilt { transform: none !important; }
   .avatar-frame::before { animation: none; opacity: 0.6; }
+  .nebula-blob { animation: none; }
+  .live-floor { animation: none; opacity: 0.4; }
 }
