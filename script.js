@@ -129,7 +129,7 @@ if (cursorGlow && !prefersReducedMotion) {
   const canvas = document.getElementById('cometCanvas');
   if (!canvas || prefersReducedMotion) return;
   const ctx = canvas.getContext('2d');
-  const colors = ['#8b6bff', '#dd1cc3', '#22d3ee'];
+  const colors = ['#9d5cff', '#ff2fc4', '#00eaff'];
   let particles = [];
 
   function resize() {
